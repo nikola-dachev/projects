@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+      <!-- details section -->
+      <section id="car-details">
+        <h1>Car Details</h1>
+        <div class="info-section">
+          <div class="car-header">
+            <!-- car image -->
+            <img
+              class="car-img"
+              src="{{ object.image_url }}"
+              alt="car image"
+            />
+            <!-- car type -->
+            <h1>{{ object.type }}</h1>
+            <!-- car model -->
+            <p><span class="description">Model: {{ object.model }}</span></p>
+            <!-- car year -->
+            <p><span class="description">Year: {{ object.year }}</span></p>
+            <!-- car price -->
+            <p><span class="description">Price: {{ object.price|floatformat:3 }}</span></p>
+          </div>
+
+          <!-- Edit/Delete buttons -->
+          <div class="buttons">
+            <a href="{% url 'car edit' object.id %}" class="edit-button">Edit</a>
+            <a href="{% url 'car delete' object.id %}" class="delete-button">Delete</a>
+          </div>
+        </div>
+      </section>
+
+{% endblock %}
