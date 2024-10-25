@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+      <!-- details section -->
+      <section id="recipe-details">
+        <h1>Recipe Details</h1>
+        <div class="info-section">
+          <div class="recipe-header">
+            <!-- recipe image -->
+              <!-- if there is no image url provided, display the default recipe image -->
+              {% if not object.image_url %}
+                  <img
+                              class="recipe-img"
+                              src="{% static 'images/default_recipe_img.png' %}"
+                              alt="recipe image"
+                            />
+              {% else %}
+                  <img
+                      class="recipe-img"
+                      src="{{ object.image_url }}"
+                      alt="recipe image"
+                    />
+              {% endif %}
+          
+            <!-- recipe title -->
+            <h1>{{ object.title }}</h1>
+            <!-- recipe cuisine type -->
+            <p><span class="description-recipe">Cuisine Type: {{ object.cuisine_type }}</span></p>
+            <!-- recipe cooking time -->
+            <p><span class="description-recipe">Cooking Time: {{ object.cooking_time }}</span></p>
+            <!-- recipe ingredients -->
+            <div class="ingredients">
+              <p><span class="description-recipe">Ingredients:</span></p>
+              <ul>
+                  {% for item in ingredients_list %}
+                  
+                     <!-- recipe ingredient -->
+                    <li>{{ item }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <p>
+              <span class="description-recipe"
+                >Instructions: {{ object.instructions }}</span
+              >
+            </p>
+          </div>
+
+          <!-- Edit/Delete buttons -->
+          <div class="buttons">
+            <a href="{% url 'edit recipe' object.pk %}" class="edit-button">Edit</a>
+            <a href="{% url 'delete recipe' object.pk %}" class="delete-button">Delete</a>
+          </div>
+        </div>
+      </section>
+
+{% endblock %}
