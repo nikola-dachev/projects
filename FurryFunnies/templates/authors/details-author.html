@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+      <main>
+        <!-- Author's Profile Details Section -->
+
+        <section id="details">
+          <div id="details-wrapper">
+            <h2>Author's Profile Details</h2>
+
+            <!-- if the author has provided a profile image link -->
+            {% if author.image_url %}
+              
+                <img
+                  id="details-img"
+                  src="{{ author.image_url }}"
+                  alt="profile img"
+                />
+
+            <!-- if the author has NO profile image link -->
+              {% else %}
+              
+                <img
+                  id="details-img"
+                  src="{% static 'images/default.png' %}"
+                  alt="profile img"
+                />
+              {% endif %}
+            <!-- author's full name -->
+            <p id="details-title">{{ author.get_full_names }}</p>
+
+            <!-- number of posts -->
+            <p id="nutrition">Published Posts: {{ total_number_published_posts }}</p>
+
+            <div id="info-wrapper">
+              <div id="details-description">
+                <!-- pets number -->
+                <p>Pets Number: {{ author.pets_number }}</p>
+
+                <!-- info if provided, otherwise skip the line -->
+              {% if author.info %}
+                <p>{{ author.info }}</p>
+              {% else %}
+                <p></p>
+              {% endif %}
+
+                <!-- Latest activity -->
+                <p>-------------------------------</p>
+                <!-- latest activity if there are posts: display the title of the last updated post -->
+                  {% if total_number_published_posts != 0 %}
+                  
+                    <p>
+                      Last Updated Post:
+                      <strong>{{ last_updated_post.title }}</strong>
+                    </p>
+
+                <!-- latest activity if there are NO posts -->
+                  {% else %}
+                  
+                    <p>
+                      Last Updated Post:
+                      <strong>N/A</strong>
+                    </p>
+                {% endif %}
+              </div>
+
+              <!--Edit and Delete buttons -->
+              <div id="action-buttons">
+                <a href="{% url 'edit author' %}" id="edit-btn">Edit</a>
+                <a href="{% url 'delete author' %}" id="delete-btn">Delete</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+{% endblock %}
